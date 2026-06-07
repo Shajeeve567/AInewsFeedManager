@@ -50,6 +50,7 @@ model Article {
 
   sourceId    Int
   source      Source    @relation(fields: [sourceId], references: [id])
+  interactions UserInteraction[]
 }
 
 model User {
@@ -59,12 +60,20 @@ model User {
   role          Role
   preferences   Json
   createdAt     DateTime  @default(now())
+  interactions  UserInteraction[]
 }
 
 model UserInteraction {
   id            String    @id @default(uuid())
   userId        String
-  artcileId     Int
+  articleId     Int
   type          InteractionType
   timestamp     DateTime  @default(now())
+
+  user          User      @relation(fields: [userId], references: [id])
+  article       Article   @relation(fields: [articleId], references: [id])
+
+  @@unique([userId, articleId, type])
+  @@index([userId])
+  @@index([articleId])
 }
