@@ -19,3 +19,7 @@ export async function saveManyArticles(feed, sourceId) {
 export async function deleteArticles() {
 
 }
+
+export async function getAllSources() {
+    
+}

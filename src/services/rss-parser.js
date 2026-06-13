@@ -3,7 +3,7 @@ import Parser from "rss-parser";
 import { saveManyArticles } from "../repositories/article.repository.js";
 import { get, set } from "../utils/cache.js"
 
-async function fetchSource(sourceId){
+export async function fetchSource(sourceId){
     try {
         const source = await prisma.source.findUnique({
             where: {
@@ -22,7 +22,6 @@ async function fetchSource(sourceId){
                 const feed = await parser.parseURL(source.url)
 
                 // injecting to in-memorydb
-                
                 // no redis yet
 
                 // saving to db
@@ -48,3 +47,31 @@ async function fetchSource(sourceId){
     }
 }
 
+
+
+export async function fetchAllSources() {
+    try {
+        
+        // get all stored sources
+        const sources = await prisma.source.findMany({
+            where: { type: "RSS" }
+        });
+
+        // use fetchsource function on all sources
+        const results = await Promise.allSettled(
+            sources.map(s => fetchSource(s.id))
+        );
+
+        // store then to articles
+
+        const succeeded = results.filter(r => r.status === "fulfilled").length;
+        const failed = results.filter(r => r.status === "rejected").length;
+
+        console.log(`Fetched ${sources.length} sources: ${succeeded} ok, ${failed} failed`);
+        return { total: sources.length, succeeded, failed };
+
+
+    } catch (error) {
+        console.error("Error: could not fetch all sources")
+    }
+}
