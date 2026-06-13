@@ -1,16 +1,9 @@
 import { Router } from "express"
+import { getArticles, getArticleById } from "../../controllers/article.controller.js"
 
 const router = Router();
 
-router.get("/", async (req, res) => {
-
-    res.status(200).json({
-        articles: {
-            name: "Shaj"
-        },
-        count: 10
-    });
-});
-
+router.get("/", getArticles);
+router.get("/:id", getArticleById);
 
 export default router;
