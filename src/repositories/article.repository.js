@@ -39,3 +39,11 @@ export async function findById(id) {
         include: { source: { select: { name: true } } }
     })
 }
+
+export async function createInteraction(userId, articleId, type) {
+    return prisma.userInteraction.upsert({
+        where: { userId_articleId_type: { userId, articleId, type } },
+        create: { userId, articleId, type },
+        update: { timestamp: new Date() }
+    })
+}

@@ -61,6 +61,20 @@ model User {
   preferences   Json
   createdAt     DateTime  @default(now())
   interactions  UserInteraction[]
+  userPreferences UserPreference[]
+}
+
+model UserPreference {
+  id          String   @id @default(uuid())
+  userId      String
+  keyword     String
+  score       Float    @default(0)
+  lastTouched DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, keyword])
+  @@index([userId])
 }
 
 model UserInteraction {
