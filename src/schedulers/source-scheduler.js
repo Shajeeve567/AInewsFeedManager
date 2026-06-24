@@ -1,5 +1,5 @@
 import cron from "node-cron"
-import { fetchAllSources } from "../services/rss-parser.js"
+import { fetchAllSources } from "../services/fetcher.js"
 
 const EVERY_15_MIN = "*/15 * * * *"
 

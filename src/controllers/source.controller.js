@@ -1,5 +1,5 @@
 import * as sourceRepo from "../repositories/source.repository.js"
-import { fetchSource } from "../services/rss-parser.js"
+import { fetchSource } from "../services/fetcher.js"
 
 export const getAllSources = async (req, res) => {
     const sources = await sourceRepo.findAll()
@@ -24,7 +24,7 @@ export const addNewSource = async (req, res) => {
 
     const source = await sourceRepo.create({ name, url, type, config: config || {} })
     if (source.type === "RSS") {
-        fetchSource(source.id).catch(err =>
+        fetchSource(source).catch(err =>
             console.error(`Initial fetch failed for source ${source.id}:`, err.message)
         )
     }
