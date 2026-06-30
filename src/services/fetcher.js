@@ -4,7 +4,6 @@ import Parser from "rss-parser";
 import { saveManyArticles } from "../repositories/article.repository.js";
 import { findById } from "../repositories/source.repository.js"
 import { get, set } from "../utils/cache.js"
-import { rss } from "./adapters/index.js"
 
 
 
