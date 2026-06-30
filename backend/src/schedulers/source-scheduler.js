@@ -1,7 +1,6 @@
 import cron from "node-cron"
 import * as sourceRepo from "../repositories/source.repository.js"
 import { rssFeedQueue } from "../queues/rssQueue.js"
-import { fetchAllSources } from "../services/fetcher.js"
 
 const EVERY_15_MIN = "*/15 * * * *"
 

@@ -14,7 +14,10 @@ export async function saveManyArticles(feed, sourceId) {
         skipDuplicates: true
     });
 }
-
+export async function saveManyNormalized(articles, sourceId) {
+    const data = articles.map(a => ({ ...a, sourceId }));
+    return prisma.article.createMany({ data, skipDuplicates: true });
+}
 export async function findMany({ sourceId, page = 1, limit = 20 }) {
     const skip = (page - 1) * limit
     const where = sourceId ? { sourceId: Number(sourceId) } : {}
