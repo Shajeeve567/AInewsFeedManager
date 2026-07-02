@@ -33,6 +33,6 @@ export async function fetchRSSforSchedule() {
             );
         }
     } catch (error) {
-        
+        console.log("ERROR: RSS fetch schedule failed!")
     }
 }

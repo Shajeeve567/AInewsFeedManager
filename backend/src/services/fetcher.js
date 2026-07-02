@@ -8,16 +8,21 @@ import { get, set } from "../utils/cache.js"
 
 
 export async function fetchSource(source) {
-  if (source.type === "RSS"){
-    const temp = await adapters.rss(source);
-    await saveManyNormalized(temp, source.id);
-  }
-  if (source.type === "API") {
-    const adapter = adapters[source.config.apiName]
-    if (!adapter) throw new Error(`Unknown API adapter: ${source.config.apiName}`)
-    return adapter(source)
-  }
-  throw new Error(`Unknown source type: ${source.type}`)
+    try {
+        if (source.type === "RSS"){
+          const temp = await adapters.rss(source);
+          await saveManyNormalized(temp, source.id);
+        }
+        if (source.type === "API") {
+          const adapter = adapters[source.config.apiName]
+          const rawArticles = await adapter(source);
+          if (!adapter) throw new Error(`Unknown API adapter: ${source.config.apiName}`)
+          await saveManyNormalized(rawArticles, source.id)
+        }
+    } catch (error) {
+        console.log(`ERROR: couldn't fetch Source ${error}`)
+        throw error
+    }
 }
 
 

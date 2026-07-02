@@ -1,5 +1,4 @@
 import { fetch as rss } from "./rss.js"
-import { fetch as hackernews } from "./hackernews.js"
-import { fetch as devto } from "./devto.js"
+import { fetchApiNews as hackernews } from "./hackernews.js"
 
-export default { rss, hackernews, devto }
+export default { rss, hackernews }
