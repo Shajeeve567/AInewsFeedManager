@@ -23,11 +23,9 @@ export const addNewSource = async (req, res) => {
     }
 
     const source = await sourceRepo.create({ name, url, type, config: config || {} })
-    if (source.type === "RSS") {
-        fetchSource(source).catch(err =>
-            console.error(`Initial fetch failed for source ${source.id}:`, err.message)
-        )
-    }
+    fetchSource(source).catch(err =>
+        console.error(`Initial fetch failed for source ${source.id}:`, err.message)
+    )
     res.status(201).json({ data: source })
 }
 
