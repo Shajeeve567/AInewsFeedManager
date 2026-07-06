@@ -6,10 +6,13 @@ import sourcesRoutes from "./api/routes/source.routes.js"
 import feedRoutes from "./api/routes/feed.routes.js"
 import userRoutes from "./api/routes/user.routes.js"
 import authRoutes from "./api/routes/authRoutes.js"
+import cors from "cors"
 
 const app = express();
 
 app.use(express.json());
+
+app.use(cors({ origin: "http://localhost:3000" }));
 
 app.use('/api/health', healthRoutes);
 app.use('/api/articles', articleRoutes);
