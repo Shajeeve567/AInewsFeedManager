@@ -33,6 +33,7 @@ export function DashboardNav() {
           <input
             type="text"
             placeholder="Search articles..."
+            suppressHydrationWarning
             className="w-full rounded-[var(--radius-input)] border border-zinc-300 bg-white py-1.5 pl-9 pr-3 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500"
           />
         </div>
