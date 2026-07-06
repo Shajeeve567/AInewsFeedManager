@@ -7,7 +7,7 @@ export const register = async (req, res) => {
         const { email, password, role } = req.body;
         // hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-        const NormalizedRole = req.body.role?.toUpperCase() === "ADMIN" ? "ADMIN" : "USER"
+        const NormalizedRole = role?.toUpperCase() === "ADMIN" ? "ADMIN" : "USER"
     
         const newuser = await createNewUser({
             email,
