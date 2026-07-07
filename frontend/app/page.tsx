@@ -12,7 +12,7 @@ export default function LandingPage() {
     <>
       <Nav />
       <Hero />
-      <SocialProof />
+      {/* <SocialProof /> */}
       <Features />
       <HowItWorks />
       <Testimonials />
