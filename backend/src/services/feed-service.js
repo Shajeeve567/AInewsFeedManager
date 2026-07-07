@@ -1,12 +1,9 @@
 import prisma from "../database/prisma.js"
 import { scoreArticle, buildPreferencesMap } from "./scorer.js"
+import { findByUser } from "../repositories/user-preference.repository.js"
 
 export async function getPersonalizedFeed(userId, { page = 1, limit = 20 } = {}) {
-  // get preferences for user
-  const preferences = await prisma.userPreference.findMany({
-    where: { userId },
-    select: { keyword: true, score: true }
-  })
+  const preferences = await findByUser(userId)
 
   const preferencesMap = buildPreferencesMap(preferences)
   const hasPreferences = Object.keys(preferencesMap).length > 0
