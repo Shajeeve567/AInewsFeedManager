@@ -888,6 +888,13 @@ font-weight: 100 900;
       }
     }
   }
+  .hover\:text-emerald-600 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-emerald-600);
+      }
+    }
+  }
   .hover\:text-emerald-700 {
     &:hover {
       @media (hover: hover) {
@@ -1235,6 +1242,15 @@ font-weight: 100 900;
       &:hover {
         @media (hover: hover) {
           color: var(--color-emerald-300);
+        }
+      }
+    }
+  }
+  .dark\:hover\:text-emerald-400 {
+    &:where(.dark, .dark *) {
+      &:hover {
+        @media (hover: hover) {
+          color: var(--color-emerald-400);
         }
       }
     }

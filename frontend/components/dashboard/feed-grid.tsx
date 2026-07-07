@@ -7,9 +7,10 @@ interface FeedGridProps {
   articles: Article[];
   savedIds: Set<number>;
   onSaveArticle: (id: number) => void;
+  onClickArticle: (id: number) => void;
 }
 
-export function FeedGrid({ articles, savedIds, onSaveArticle }: FeedGridProps) {
+export function FeedGrid({ articles, savedIds, onSaveArticle, onClickArticle }: FeedGridProps) {
   if (articles.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -27,6 +28,7 @@ export function FeedGrid({ articles, savedIds, onSaveArticle }: FeedGridProps) {
           article={article}
           saved={savedIds.has(article.id)}
           onSave={onSaveArticle}
+          onClick={() => onClickArticle(article.id)}
         />
       ))}
     </div>

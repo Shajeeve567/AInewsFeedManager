@@ -94,6 +94,11 @@ export function FeedClient() {
     }
   };
 
+  const handleClickArticle = (articleId: number) => {
+    if (!user) return;
+    interactWithArticle(articleId, "CLICK", user.id).catch(() => {});
+  }
+
   const loadMore = () => {
     if (!loading && hasMore) {
       const nextPage = page + 1;
@@ -135,7 +140,7 @@ export function FeedClient() {
             </div>
           ) : (
             <>
-              <FeedGrid articles={articles} savedIds={savedIds} onSaveArticle={handleSaveArticle} />
+              <FeedGrid articles={articles} savedIds={savedIds} onSaveArticle={handleSaveArticle} onClickArticle={handleClickArticle} />
               {hasMore && (
                 <div className="mt-6 text-center">
                   <button
