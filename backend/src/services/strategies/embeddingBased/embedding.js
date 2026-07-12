@@ -1,4 +1,7 @@
 import { extractor } from "./config.js";
+import prisma from "../../../database/prisma.js";
+import { getRecentArticlesWithEmbeddings } from "../../../repositories/articleEmbedding.repository.js";
+import { InteractionType } from "@prisma/client";
 
 
 async function generateArticleEmbedding(text) {
@@ -25,14 +28,24 @@ async function buildUserProfileVector(userId) {
     const interactions = await prisma.userInteraction.findMany({
         where: { 
             userId: userId,
-            type: { in: ['LIKE', 'SAVE', 'READ', 'CLICK', 'SHARE'] }
+            type: { 
+                in: [
+                    InteractionType.LIKE, 
+                    InteractionType.SAVE, 
+                    InteractionType.READ, 
+                    InteractionType.CLICK, 
+                    InteractionType.SHARE
+                ] 
+            }
         },
         include: {
             article: { include: { embedding: true } }
         },
         orderBy: { timestamp: 'desc' },
-        take: 20 // Look at their 20 most recent interactions
+        take: 20 
     });
+
+    
     // Extract just the Float[] arrays
     const vectors = interactions
         .filter(int => int.article && int.article.embedding)

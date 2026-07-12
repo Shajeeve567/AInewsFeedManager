@@ -1,5 +1,5 @@
 import * as articleRepo from "../repositories/article.repository.js"
-import { updateScores } from "../services/strategies/ruleBased/preference-engine.js"
+import { updateScores } from "../services/preference-engine.js"
 
 const VALID_TYPES = ["READ", "SAVE", "CLICK", "LIKE", "SHARE", "DISMISS"]
 

@@ -3,8 +3,6 @@ import { scoreArticleByEmbedding } from "./strategies/embeddingBased/embedding.j
 
 export async function getPersonalizedFeed(userId, { page = 1, limit = 20 } = {}) {
   // get preferences for user
-  const scoredByRule = await scoreArticleByRule(userId)
-  const scoredByEmbedding = await scoreArticleByEmbedding(userId, 15)
 
   const [ruleCandidates, embeddingCandidates] = await Promise.all([
       scoreArticleByRule(userId),
@@ -34,9 +32,8 @@ export async function getPersonalizedFeed(userId, { page = 1, limit = 20 } = {})
 
   const finalCandidates = Array.from(combinedMap.values());
   finalCandidates.sort((a, b) => b.finalScore - a.finalScore);
-
-  const skip = (page - 1) * limit
-  const paged = scored.slice(skip, skip + limit)
+  const skip = (page - 1) * limit;
+  const paged = finalCandidates.slice(skip, skip + limit);
 
   return {
     data: paged,
