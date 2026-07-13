@@ -2,7 +2,7 @@ const steps = [
   {
     number: "01",
     title: "Connect your sources",
-    description: "Link your favorite RSS feeds, newsletters, and dev communities. Stratum pulls everything into one unified stream.",
+    description: "Link your favorite RSS feeds, newsletters, and dev communities. FedIn pulls everything into one unified stream.",
   },
   {
     number: "02",

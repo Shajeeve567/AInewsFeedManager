@@ -1,4 +1,4 @@
-import { extractKeywords } from "./keyword-extractor.js"
+import { extractKeywords } from "../../../utils/keyword-extractor.js"
 
 const RECENCY_WEIGHT = 0.3
 const RELEVANCE_WEIGHT = 0.7

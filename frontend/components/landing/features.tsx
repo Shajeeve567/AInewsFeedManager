@@ -38,7 +38,7 @@ export function Features() {
           Built for how engineers read
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-center text-zinc-600 dark:text-zinc-400">
-          Stop wading through endless feeds. Stratum surfaces the stories that matter to you.
+          Stop wading through endless feeds. FedIn surfaces the stories that matter to you.
         </p>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

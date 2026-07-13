@@ -9,7 +9,7 @@ export default function NotFound() {
           <rect x="6" y="6" width="6" height="6" rx="1" fill="white" />
           <circle cx="19" cy="19" r="5" fill="white" />
         </svg>
-        Stratum
+        FedIn
       </div>
       <h1 className="mt-6 text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">404</h1>
       <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">This page doesn&apos;t exist.</p>

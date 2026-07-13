@@ -2,26 +2,26 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
 
 function getToken(): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem("stratum_token");
+  return localStorage.getItem("fedin_token");
 }
 
 export function setToken(token: string) {
-  localStorage.setItem("stratum_token", token);
+  localStorage.setItem("fedin_token", token);
 }
 
 export function clearToken() {
-  localStorage.removeItem("stratum_token");
-  localStorage.removeItem("stratum_user");
+  localStorage.removeItem("fedin_token");
+  localStorage.removeItem("fedin_user");
 }
 
 export function getStoredUser(): { id: string; email: string } | null {
   if (typeof window === "undefined") return null;
-  const raw = localStorage.getItem("stratum_user");
+  const raw = localStorage.getItem("fedin_user");
   return raw ? JSON.parse(raw) : null;
 }
 
 export function setStoredUser(user: { id: string; email: string }) {
-  localStorage.setItem("stratum_user", JSON.stringify(user));
+  localStorage.setItem("fedin_user", JSON.stringify(user));
 }
 
 async function apiFetch<T>(

@@ -1,6 +1,6 @@
 const testimonials = [
   {
-    quote: "Stratum completely replaced my morning routine of skimming 15 different sites. I get better signal in 5 minutes than I used to in an hour.",
+    quote: "FedIn completely replaced my morning routine of skimming 15 different sites. I get better signal in 5 minutes than I used to in an hour.",
     name: "Alex Chen",
     role: "Senior Engineer at Stripe",
     stars: 5,

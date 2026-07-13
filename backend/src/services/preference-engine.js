@@ -3,7 +3,7 @@ import { extractKeywords } from "./keyword-extractor.js"
 import { decayAll, upsertKeyword } from "../repositories/user-preference.repository.js"
 import { findById } from "../repositories/article.repository.js"
 
-const WEIGHTS = { SAVE: 3, READ: 2, CLICK: 1 }
+const WEIGHTS = { LIKE: 4, SAVE: 3, READ: 2, CLICK: 1, SHARE: 1, DISMISS: -2 }
 const DECAY_RATE = 0.95
 
 export async function updateScores(userId, articleId, interactionType) {

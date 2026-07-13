@@ -1,7 +1,7 @@
 import * as articleRepo from "../repositories/article.repository.js"
 import { updateScores } from "../services/preference-engine.js"
 
-const VALID_TYPES = ["READ", "SAVE", "CLICK"]
+const VALID_TYPES = ["READ", "SAVE", "CLICK", "LIKE", "SHARE", "DISMISS"]
 
 export const getArticles = async (req, res) => {
     const page = Math.max(1, parseInt(req.query.page) || 1)
@@ -34,7 +34,7 @@ export const interactWithArticle = async (req, res) => {
         return res.status(400).json({ error: "userId and type are required" })
     }
     if (!VALID_TYPES.includes(type)) {
-        return res.status(400).json({ error: "type must be READ, SAVE, or CLICK" })
+        return res.status(400).json({ error: "type must be valid" })
     }
 
     const article = await articleRepo.findById(articleId)
