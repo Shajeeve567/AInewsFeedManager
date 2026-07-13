@@ -4,7 +4,7 @@
 
 # FedIn - AI-Powered Newsfeed Manager
 
-FedIn (formerly Stratum) is a personalized, AI-powered technology newsfeed manager built for engineers. It aggregates, ranks, and summarizes the latest articles from multiple sources, allowing you to stay ahead of the curve without the cognitive overload.
+FedIn is a personalized, AI-powered technology newsfeed manager built for engineers. It aggregates, ranks, and summarizes the latest articles from multiple sources, allowing you to stay ahead of the curve without the cognitive overload.
 
 ## 🌟 Features
 - **Smart Personalization:** Utilizes a hybrid recommendation engine (Rules-based + Vector Embeddings) to prioritize content relevant to your reading habits.
