@@ -49,10 +49,10 @@ export function Sidebar({ trendingTopics }: SidebarProps) {
         <CardContent className="pt-4">
           <div className="flex items-center gap-2">
             <Sparkle size={16} className="text-fedin-green" />
-            <h3 className="text-sm font-semibold text-fedin-dark">About Stratum</h3>
+            <h3 className="text-sm font-semibold text-fedin-dark">About FedIn</h3>
           </div>
           <p className="mt-2 text-xs leading-relaxed text-fedin-dark/70">
-            Stratum uses AI to aggregate, rank, and summarize technology news so you can stay informed without the noise.
+            FedIn uses AI to aggregate, rank, and summarize technology news so you can stay informed without the noise.
           </p>
         </CardContent>
       </Card>

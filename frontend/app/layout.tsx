@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
-  title: "Stratum - AI-powered newsfeed for engineers",
+  title: "FedIn - AI-powered newsfeed for engineers",
   description: "A personalized AI-powered newsfeed that aggregates, ranks, summarizes, and recommends technology news for engineers.",
 };
 

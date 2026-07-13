@@ -203,7 +203,7 @@ export default function LandingPage() {
           <span className="text-sm font-bold tracking-tight">FedIn</span>
         </div>
         <div className="text-center text-zinc-500 text-sm">
-          <p>© {new Date().getFullYear()} Stratum Inc. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} FedIn Inc. All rights reserved.</p>
         </div>
       </footer>
     </div>

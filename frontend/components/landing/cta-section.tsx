@@ -12,7 +12,7 @@ export function CTASection() {
           Ready to cut through the noise?
         </h2>
         <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-          Join the engineers who start their day with Stratum.
+          Join the engineers who start their day with FedIn.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link href="/login">

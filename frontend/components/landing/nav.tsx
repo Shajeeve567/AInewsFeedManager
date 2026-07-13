@@ -17,7 +17,7 @@ export function Nav() {
             <rect x="6" y="6" width="6" height="6" rx="1" fill="white" />
             <circle cx="19" cy="19" r="5" fill="white" />
           </svg>
-          <span className="text-lg font-semibold tracking-tight">Stratum</span>
+          <span className="text-lg font-semibold tracking-tight">FedIn</span>
         </Link>
 
         <div className="hidden items-center gap-6 sm:flex">
