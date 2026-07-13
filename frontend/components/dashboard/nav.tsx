@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Sun, Moon, MagnifyingGlass, SignOut } from "@phosphor-icons/react";
-import { useTheme } from "@/components/theme-provider";
+import { MagnifyingGlass, SignOut } from "@phosphor-icons/react";
 import { useAuth } from "@/lib/auth-context";
 
 export function DashboardNav() {
-  const { theme, toggle } = useTheme();
   const { logout } = useAuth();
   const router = useRouter();
 
@@ -17,44 +15,44 @@ export function DashboardNav() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-zinc-200 bg-white/80 backdrop-blur-sm dark:border-zinc-800 dark:bg-zinc-950/80">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4">
+    <div className="sticky top-4 z-50 w-full px-4 flex justify-center">
+      <nav className="glass-nav rounded-full px-6 py-2 flex w-full max-w-6xl items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="28" height="28" rx="6" fill="#059669" />
-            <rect x="6" y="6" width="6" height="6" rx="1" fill="white" />
-            <circle cx="19" cy="19" r="5" fill="white" />
-          </svg>
-          <span className="text-base font-semibold tracking-tight">Stratum</span>
+          <div className="flex gap-1">
+            <div className="w-1.5 h-5 bg-fedin-dark rounded-full transform -rotate-12"></div>
+            <div className="w-1.5 h-3 bg-fedin-dark rounded-full mt-2 transform -rotate-12"></div>
+            <div className="w-1.5 h-4 bg-fedin-dark rounded-full mt-1 transform -rotate-12"></div>
+          </div>
+          <span className="text-base font-bold tracking-tight text-fedin-dark">FedIn</span>
+          <div className="ml-2 flex items-center gap-1.5 rounded-full bg-white/40 px-2 py-0.5 text-[10px] font-medium border border-white/40">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fedin-green opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-fedin-green"></span>
+            </span>
+            <span className="text-fedin-dark">Live</span>
+          </div>
         </Link>
 
-        <div className="relative flex-1 max-w-md">
-          <MagnifyingGlass size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+        <div className="relative flex-1 max-w-md hidden sm:block">
+          <MagnifyingGlass size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-fedin-dark/50" />
           <input
             type="text"
             placeholder="Search articles..."
             suppressHydrationWarning
-            className="w-full rounded-[var(--radius-input)] border border-zinc-300 bg-white py-1.5 pl-9 pr-3 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+            className="w-full rounded-full border border-white/60 bg-white/40 py-2 pl-9 pr-3 text-sm text-fedin-dark placeholder:text-fedin-dark/50 focus:outline-none focus:ring-1 focus:ring-fedin-green focus:border-fedin-green transition-all"
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={toggle}
-            className="rounded-[var(--radius-button)] p-2 text-zinc-600 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={handleSignOut}
-            className="rounded-[var(--radius-button)] p-2 text-zinc-600 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+            className="rounded-full p-2 text-fedin-dark/70 transition-colors hover:bg-white/50 hover:text-fedin-dark"
             aria-label="Sign out"
           >
-            <SignOut size={18} />
+            <SignOut size={18} weight="bold" />
           </button>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

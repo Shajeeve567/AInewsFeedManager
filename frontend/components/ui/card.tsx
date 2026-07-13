@@ -8,8 +8,8 @@ export function Card({ className, hover = false, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-[var(--radius-card)] border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900",
-        hover && "transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-800/50",
+        "rounded-3xl glass-widget-light",
+        hover && "transition-all duration-300 hover:bg-white/70",
         className
       )}
       {...props}

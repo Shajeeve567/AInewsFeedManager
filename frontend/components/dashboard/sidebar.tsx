@@ -19,22 +19,22 @@ export function Sidebar({ trendingTopics }: SidebarProps) {
       <Card>
         <CardContent className="pt-4">
           <div className="flex items-center gap-2">
-            <TrendUp size={16} className="text-emerald-600 dark:text-emerald-400" />
-            <h3 className="text-sm font-semibold">Trending Topics</h3>
+            <TrendUp size={16} className="text-fedin-green animate-pulse" />
+            <h3 className="text-sm font-semibold text-fedin-dark">Trending Topics</h3>
           </div>
           {trendingTopics.length === 0 ? (
-            <p className="mt-3 text-xs text-zinc-500">No topics trending yet.</p>
+            <p className="mt-3 text-xs text-fedin-dark/60">No topics trending yet.</p>
           ) : (
             <div className="mt-3 space-y-2">
               {trendingTopics.map((topic) => (
                 <div key={topic.word}>
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-medium text-zinc-700 dark:text-zinc-300">{topic.word}</span>
-                    <span className="text-zinc-400">{topic.count}</span>
+                    <span className="font-medium text-fedin-dark/90">{topic.word}</span>
+                    <span className="text-fedin-dark/60">{topic.count}</span>
                   </div>
-                  <div className="mt-0.5 h-1 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
+                  <div className="mt-0.5 h-1 w-full overflow-hidden rounded-full bg-white/50">
                     <div
-                      className="h-full rounded-full bg-emerald-500/60"
+                      className="h-full rounded-full bg-fedin-green/80"
                       style={{ width: `${(topic.count / topic.maxCount) * 100}%` }}
                     />
                   </div>
@@ -48,10 +48,10 @@ export function Sidebar({ trendingTopics }: SidebarProps) {
       <Card>
         <CardContent className="pt-4">
           <div className="flex items-center gap-2">
-            <Sparkle size={16} className="text-emerald-600 dark:text-emerald-400" />
-            <h3 className="text-sm font-semibold">About Stratum</h3>
+            <Sparkle size={16} className="text-fedin-green" />
+            <h3 className="text-sm font-semibold text-fedin-dark">About Stratum</h3>
           </div>
-          <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+          <p className="mt-2 text-xs leading-relaxed text-fedin-dark/70">
             Stratum uses AI to aggregate, rank, and summarize technology news so you can stay informed without the noise.
           </p>
         </CardContent>

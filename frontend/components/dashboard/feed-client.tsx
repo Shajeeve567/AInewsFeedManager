@@ -110,7 +110,7 @@ export function FeedClient() {
         <p className="text-lg font-medium text-red-500">{error}</p>
         <button
           onClick={() => fetchFeed(1)}
-          className="mt-4 rounded-[var(--radius-button)] bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+          className="mt-4 rounded-full bg-fedin-green px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-fedin-green-hover btn-shadow"
         >
           Try again
         </button>
@@ -123,13 +123,13 @@ export function FeedClient() {
       <div className="grid gap-8 lg:grid-cols-[1fr_280px]">
         <div>
           {loading && articles.length === 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-4">
               {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="animate-pulse rounded-[var(--radius-card)] border border-zinc-200 p-4 dark:border-zinc-800">
-                  <div className="h-3 w-24 rounded bg-zinc-200 dark:bg-zinc-800" />
-                  <div className="mt-2 h-4 w-full rounded bg-zinc-200 dark:bg-zinc-800" />
-                  <div className="mt-1 h-4 w-3/4 rounded bg-zinc-200 dark:bg-zinc-800" />
-                  <div className="mt-3 h-3 w-32 rounded bg-zinc-200 dark:bg-zinc-800" />
+                <div key={i} className="animate-pulse rounded-3xl glass-widget-light p-5">
+                  <div className="h-3 w-24 rounded-full bg-fedin-dark/10" />
+                  <div className="mt-3 h-4 w-full rounded-full bg-fedin-dark/10" />
+                  <div className="mt-2 h-4 w-3/4 rounded-full bg-fedin-dark/10" />
+                  <div className="mt-4 h-3 w-32 rounded-full bg-fedin-dark/10" />
                 </div>
               ))}
             </div>
@@ -137,11 +137,11 @@ export function FeedClient() {
             <>
               <FeedGrid articles={articles} savedIds={savedIds} onSaveArticle={handleSaveArticle} />
               {hasMore && (
-                <div className="mt-6 text-center">
+                <div className="mt-8 text-center">
                   <button
                     onClick={loadMore}
                     disabled={loading}
-                    className="rounded-[var(--radius-button)] border border-zinc-300 px-6 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 disabled:opacity-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                    className="rounded-full bg-white/40 border border-white/60 px-8 py-2.5 text-sm font-medium text-fedin-dark transition-all hover:bg-white/70 disabled:opacity-50"
                   >
                     {loading ? "Loading..." : "Load more"}
                   </button>

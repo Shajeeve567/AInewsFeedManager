@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { Bookmark, BookmarkSimple, Clock, ArrowSquareOut } from "@phosphor-icons/react";
 import { cn, timeAgo, readingTime, truncate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -13,20 +14,30 @@ interface ArticleCardProps {
 
 export function ArticleCard({ article, saved, onSave }: ArticleCardProps) {
   return (
-    <div className="group rounded-[var(--radius-card)] border border-zinc-200 bg-white p-4 transition-all duration-150 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700">
+    <motion.div 
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        show: { opacity: 1, y: 0 }
+      }}
+      whileHover={{ y: -4, scale: 1.01 }}
+      className="group rounded-3xl glass-widget-light p-5 transition-colors duration-300 hover:bg-white/70"
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="truncate text-xs font-medium text-emerald-600 dark:text-emerald-400">
+            <span className="truncate text-xs font-medium text-emerald-700 dark:text-emerald-400">
               {article.source.name}
             </span>
             {article.relevanceScore && article.relevanceScore > 0 && (
-              <Badge variant="accent" className="shrink-0">{article.relevanceScore}</Badge>
+              <Badge variant="accent" className="shrink-0">{article.relevanceScore.toFixed(2)}</Badge>
             )}
             {article.relevanceScore && article.relevanceScore > 0 && (
-              <span className="shrink-0 rounded-[var(--radius-badge)] bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:bg-amber-950 dark:text-amber-300" title="Matched your interests">
+              <motion.span 
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="shrink-0 rounded-[var(--radius-badge)] bg-emerald-500/20 px-2 py-0.5 text-[11px] font-medium text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300" title="Matched your interests">
                 Recommended
-              </span>
+              </motion.span>
             )}
           </div>
           <h3 className="mt-0.5 text-sm font-semibold leading-snug">
@@ -68,6 +79,6 @@ export function ArticleCard({ article, saved, onSave }: ArticleCardProps) {
           </a>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
