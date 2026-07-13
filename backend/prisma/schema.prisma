@@ -25,6 +25,9 @@ enum InteractionType {
   READ
   SAVE
   CLICK
+  LIKE
+  SHARE
+  DISMISS
 }
 
 model Source {
@@ -51,6 +54,14 @@ model Article {
   sourceId    Int
   source      Source    @relation(fields: [sourceId], references: [id])
   interactions UserInteraction[]
+  embedding   ArticleEmbeddings?
+}
+
+model ArticleEmbeddings {
+  id          String   @id @default(uuid())
+  articleId   Int      @unique
+  embedding   Float[]
+  article     Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
 }
 
 model User {

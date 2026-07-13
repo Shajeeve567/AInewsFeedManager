@@ -1,7 +1,7 @@
 import adapters from "./adapters/index.js"
 import prisma from "../database/prisma.js";
 import Parser from "rss-parser";
-import { saveManyArticles, saveManyNormalized } from "../repositories/article.repository.js";
+import { saveManyNormalized } from "../repositories/article.repository.js";
 import { findById } from "../repositories/source.repository.js"
 import { get, set } from "../utils/cache.js"
 
@@ -15,8 +15,8 @@ export async function fetchSource(source) {
         }
         if (source.type === "API") {
           const adapter = adapters[source.config.apiName]
-          const rawArticles = await adapter(source);
           if (!adapter) throw new Error(`Unknown API adapter: ${source.config.apiName}`)
+          const rawArticles = await adapter(source);
           await saveManyNormalized(rawArticles, source.id)
         }
     } catch (error) {

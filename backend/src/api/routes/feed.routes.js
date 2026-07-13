@@ -1,8 +1,10 @@
 import { Router } from "express"
 import { getFeed } from "../../controllers/feed.controller.js"
+import { verifyToken } from "../../middleware/authMiddleware.js"
+
 
 const router = Router()
 
-router.get("/", getFeed)
+router.get("/", verifyToken, getFeed)
 
 export default router

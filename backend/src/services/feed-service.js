@@ -1,43 +1,49 @@
 import prisma from "../database/prisma.js"
 import { scoreArticle, buildPreferencesMap } from "./scorer.js"
+import { findByUser } from "../repositories/user-preference.repository.js"
 
 export async function getPersonalizedFeed(userId, { page = 1, limit = 20 } = {}) {
-  // get preferences for user
-  const preferences = await prisma.userPreference.findMany({
-    where: { userId },
-    select: { keyword: true, score: true }
-  })
+  const preferences = await findByUser(userId)
 
-  const preferencesMap = buildPreferencesMap(preferences)
-  const hasPreferences = Object.keys(preferencesMap).length > 0
+  const [ruleCandidates, embeddingCandidates] = await Promise.all([
+      scoreArticleByRule(userId),
+      scoreArticleByEmbedding(userId, 50) // Ask for top 50 embedding candidates
+  ]);
 
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000)
-  const articles = await prisma.article.findMany({
-    where: { publishedAt: { gte: thirtyDaysAgo } },
-    include: { source: { select: { name: true } } },
-    orderBy: { publishedAt: "desc" }
-  })
+  const combinedMap = new Map();
 
-  const scored = articles.map(a => ({
-    ...a,
-    relevanceScore: hasPreferences ? scoreArticle(a, preferencesMap) : 0
-  }))
-
-  if (hasPreferences) {
-    scored.sort((a, b) => b.relevanceScore - a.relevanceScore)
+  for (const article of ruleCandidates) {
+    combinedMap.set(article.id, {
+        ...article,
+        finalScore: article.relevanceScore * 0.4 // Weight Rule-based at 40%
+    });
   }
 
-  const skip = (page - 1) * limit
-  const paged = scored.slice(skip, skip + limit)
+  for (const article of embeddingCandidates) {
+      if (combinedMap.has(article.id)) {
+          const existing = combinedMap.get(article.id);
+          existing.finalScore += (article.embeddingScore * 0.6); // Boost score!
+      } else {
+          combinedMap.set(article.id, {
+              ...article,
+              finalScore: article.embeddingScore * 0.6 // Weight Embedding at 60%
+          });
+      }
+  }
+
+  const finalCandidates = Array.from(combinedMap.values());
+  finalCandidates.sort((a, b) => b.finalScore - a.finalScore);
+  const skip = (page - 1) * limit;
+  const paged = finalCandidates.slice(skip, skip + limit);
 
   return {
     data: paged,
     meta: {
       page,
       limit,
-      total: scored.length,
-      totalPages: Math.ceil(scored.length / limit),
-      personalized: hasPreferences
+      total: finalCandidates.length,
+      totalPages: Math.ceil(finalCandidates.length / limit),
+      personalized: finalCandidates.length > 0 
     }
   }
 }
