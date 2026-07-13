@@ -1,8 +1,9 @@
-import { scoreArticleByRule } from "./strategies/ruleBased/rule.js"
-import { scoreArticleByEmbedding } from "./strategies/embeddingBased/embedding.js"
+import prisma from "../database/prisma.js"
+import { scoreArticle, buildPreferencesMap } from "./scorer.js"
+import { findByUser } from "../repositories/user-preference.repository.js"
 
 export async function getPersonalizedFeed(userId, { page = 1, limit = 20 } = {}) {
-  // get preferences for user
+  const preferences = await findByUser(userId)
 
   const [ruleCandidates, embeddingCandidates] = await Promise.all([
       scoreArticleByRule(userId),

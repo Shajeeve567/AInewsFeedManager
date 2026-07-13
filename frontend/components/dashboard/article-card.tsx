@@ -10,9 +10,10 @@ interface ArticleCardProps {
   article: Article;
   saved: boolean;
   onSave: (id: number) => void;
+  onClick: () => void;
 }
 
-export function ArticleCard({ article, saved, onSave }: ArticleCardProps) {
+export function ArticleCard({ article, saved, onSave, onClick }: ArticleCardProps) {
   return (
     <motion.div 
       variants={{
@@ -40,9 +41,11 @@ export function ArticleCard({ article, saved, onSave }: ArticleCardProps) {
               </motion.span>
             )}
           </div>
-          <h3 className="mt-0.5 text-sm font-semibold leading-snug">
-            {truncate(article.title, 120)}
-          </h3>
+          <a href={article.link} target="_blank" rel="noopener noreferrer" onClick={onClick}>
+            <h3 className="mt-0.5 text-sm font-semibold leading-snug transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+              {truncate(article.title, 120)}
+            </h3>
+          </a>
           <p className="mt-1 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
             {truncate(article.content, 150)}
           </p>
@@ -72,6 +75,7 @@ export function ArticleCard({ article, saved, onSave }: ArticleCardProps) {
             href={article.link}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={onClick}
             className="rounded-[var(--radius-button)] p-1.5 text-zinc-400 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
             aria-label="Open article"
           >
