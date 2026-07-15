@@ -47,6 +47,7 @@ model Article {
   title       String
   link        String    @unique
   content     String?
+  summary     String?
 
   publishedAt DateTime?
   createdAt   DateTime  @default(now())

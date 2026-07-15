@@ -1,6 +1,7 @@
 import prisma from "../database/prisma.js"
-import { scoreArticle, buildPreferencesMap } from "./scorer.js"
 import { findByUser } from "../repositories/user-preference.repository.js"
+import { scoreArticleByRule } from "./strategies/ruleBased/rule.js"
+import { scoreArticleByEmbedding } from "./strategies/embeddingBased/embedding.js"
 
 export async function getPersonalizedFeed(userId, { page = 1, limit = 20 } = {}) {
   const preferences = await findByUser(userId)

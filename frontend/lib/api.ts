@@ -38,6 +38,12 @@ async function apiFetch<T>(
   const res = await fetch(`${API_URL}${path}`, { ...options, headers });
 
   if (!res.ok) {
+    if (res.status === 401 || res.status === 403) {
+      if (typeof window !== "undefined") {
+        clearToken();
+        window.location.href = "/login";
+      }
+    }
     const body = await res.json().catch(() => ({}));
     throw new Error(body.message || body.error || "Request failed");
   }
@@ -54,6 +60,7 @@ export interface Article {
   sourceId: number;
   source: { name: string };
   relevanceScore?: number;
+  summary?: string;
 }
 
 export interface Source {
@@ -95,6 +102,12 @@ export function interactWithArticle(
   return apiFetch<{ message: string }>(`/articles/${articleId}/interact`, {
     method: "POST",
     body: JSON.stringify({ userId, type }),
+  });
+}
+
+export function summarizeArticle(articleId: number) {
+  return apiFetch<{ message: string }>(`/articles/${articleId}/summarize`, {
+    method: "POST"
   });
 }
 

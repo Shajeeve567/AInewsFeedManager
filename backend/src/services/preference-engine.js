@@ -1,5 +1,5 @@
 import prisma from "../database/prisma.js"
-import { extractKeywords } from "./keyword-extractor.js"
+import { extractKeywords } from "../utils/keyword-extractor.js"
 import { decayAll, upsertKeyword } from "../repositories/user-preference.repository.js"
 import { findById } from "../repositories/article.repository.js"
 
