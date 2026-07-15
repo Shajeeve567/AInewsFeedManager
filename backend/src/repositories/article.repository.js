@@ -1,4 +1,5 @@
 import prisma from "../database/prisma.js"
+import { summaryQueue } from "../queues/summaryQueue.js";
 
 export async function saveManyArticles(feed, sourceId) {
     const articles = feed.items.map(item => ({
@@ -14,9 +15,24 @@ export async function saveManyArticles(feed, sourceId) {
         skipDuplicates: true
     });
 }
+
 export async function saveManyNormalized(articles, sourceId) {
     const data = articles.map(a => ({ ...a, sourceId }));
-    return prisma.article.createMany({ data, skipDuplicates: true });
+    await prisma.article.createMany({ data, skipDuplicates: true });
+
+    // Fetch the newly inserted articles by their unique links to get their IDs
+    const links = data.map(a => a.link);
+    const savedArticles = await prisma.article.findMany({
+        where: { link: { in: links } },
+        select: { id: true, summary: true }
+    });
+
+    // Enqueue jobs for any article that hasn't been summarized yet
+    // for (const article of savedArticles) {
+    //     if (!article.summary) {
+    //         await summaryQueue.add('summarize-article', { articleId: article.id });
+    //     }
+    // }
 }
 export async function findMany({ sourceId, page = 1, limit = 20 }) {
     const skip = (page - 1) * limit

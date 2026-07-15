@@ -45,3 +45,18 @@ export const interactWithArticle = async (req, res) => {
 
     res.status(200).json({ message: "Interaction recorded" })
 }
+
+import { summaryQueue } from "../queues/summaryQueue.js";
+
+export const queueSummarize = async (req, res) => {
+    const articleId = Number(req.params.id);
+    const article = await articleRepo.findById(articleId);
+    
+    if (!article) return res.status(404).json({ error: "Article not found" });
+    if (article.summary) return res.status(200).json({ message: "Article already summarized", data: article });
+    
+    // Add to BullMQ queue for processing
+    await summaryQueue.add('summarize-article', { articleId: article.id });
+    
+    res.status(202).json({ message: "Summarization queued successfully" });
+}
