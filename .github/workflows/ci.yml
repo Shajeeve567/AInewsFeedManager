@@ -21,9 +21,14 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './backend/package-lock.json'
       - run: npm ci
-      - run: npx prisma generate
+      - name: Generate Prisma Client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/dummy"
       - name: Run Backend Tests
         run: npx vitest run
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/dummy"
 
   frontend-tests:
     runs-on: ubuntu-latest
