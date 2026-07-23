@@ -39,6 +39,7 @@ model Source {
   createdAt DateTime  @default(now())
 
   articles  Article[]
+  userSources UserSource[]
 }
 
 model Article {
@@ -68,12 +69,19 @@ model ArticleEmbeddings {
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
-  password      String
+  
+  password      String?
+  provider      String    @default("local") // "local" | "google"
+  googleId      String?  @unique
+  name          String?
+
   role          Role
   preferences   Json
   createdAt     DateTime  @default(now())
+
   interactions  UserInteraction[]
   userPreferences UserPreference[]
+  sources       UserSource[]
 }
 
 model UserPreference {
@@ -102,4 +110,16 @@ model UserInteraction {
   @@unique([userId, articleId, type])
   @@index([userId])
   @@index([articleId])
+}
+
+
+model UserSource {
+  userId        String
+  sourceId      Int
+  addedAt       DateTime  @default(now())
+
+  user          User      @relation(fields: [userId], references: [id])
+  source        Source    @relation(fields: [sourceId], references: [id])
+
+  @@id([userId, sourceId])
 }

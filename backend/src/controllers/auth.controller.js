@@ -2,6 +2,25 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { createNewUser, findByEmail } from "../repositories/user.repository.js";
 
+
+
+export const redirectToDashboard = (req, res) => {
+    if (!req.user) {
+        return res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:3000'}/login?error=oauth`);
+    }
+
+    const token = jwt.sign(
+        { userId: req.user.id, email: req.user.email, role: req.user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "10m" }
+    );
+
+    res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:3000'}/oauth/callback?token=${token}`);
+}
+
+
+
+
 export const register = async (req, res) => {
     try {
         const { email, password, role } = req.body;

@@ -7,6 +7,7 @@ interface AuthState {
   user: { id: string; email: string } | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  oauthLogin: (token: string) => void;
   logout: () => void;
 }
 
@@ -14,6 +15,7 @@ const AuthContext = createContext<AuthState>({
   user: null,
   loading: true,
   login: async () => {},
+  oauthLogin: () => {},
   logout: () => {},
 });
 
@@ -36,13 +38,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(u);
   }, []);
 
+  const oauthLogin = useCallback((token: string) => {
+    setToken(token);
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const u = { id: payload.userId, email: payload.email };
+    setStoredUser(u);
+    setUser(u);
+  }, []);
+
   const logout = useCallback(() => {
     clearToken();
     setUser(null);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, oauthLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );

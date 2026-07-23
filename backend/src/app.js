@@ -7,12 +7,13 @@ import feedRoutes from "./api/routes/feed.routes.js"
 import userRoutes from "./api/routes/user.routes.js"
 import authRoutes from "./api/routes/authRoutes.js"
 import cors from "cors"
+import passport from "./config/passport.js"
 
 const app = express();
 
 app.use(express.json());
-
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(passport.initialize());
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 app.use('/api/health', healthRoutes);
 app.use('/api/articles', articleRoutes);
