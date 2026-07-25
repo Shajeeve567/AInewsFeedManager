@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MagnifyingGlass, SignOut } from "@phosphor-icons/react";
+import { MagnifyingGlass, SignOut, Globe } from "@phosphor-icons/react";
 import { useAuth } from "@/lib/auth-context";
 
 export function DashboardNav() {
@@ -43,11 +43,19 @@ export function DashboardNav() {
           />
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1 shrink-0">
+          <Link 
+            href="/dashboard/sources"
+            className="rounded-full px-4 py-2.5 text-sm font-semibold text-fedin-dark/80 transition-colors hover:bg-white/60 hover:text-fedin-dark flex items-center gap-2"
+            title="Manage Sources"
+          >
+            <Globe size={18} weight="bold" /> <span className="hidden sm:inline">Sources</span>
+          </Link>
           <button
             onClick={handleSignOut}
-            className="rounded-full p-2 text-fedin-dark/70 transition-colors hover:bg-white/50 hover:text-fedin-dark"
+            className="rounded-full p-2.5 text-fedin-dark/70 transition-colors hover:bg-red-50 hover:text-red-500"
             aria-label="Sign out"
+            title="Sign Out"
           >
             <SignOut size={18} weight="bold" />
           </button>

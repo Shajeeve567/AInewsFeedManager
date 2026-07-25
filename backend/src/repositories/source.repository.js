@@ -12,6 +12,10 @@ export async function create(data) {
   return prisma.source.create({ data })
 }
 
+export async function findByUrl(url) {
+  return prisma.source.findFirst({ where: { url } })
+}
+
 export async function update(id, data) {
   return prisma.source.update({ where: { id }, data })
 }

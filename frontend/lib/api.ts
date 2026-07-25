@@ -139,6 +139,35 @@ export function updateUserPreferences(id: string, preferences: Record<string, un
   });
 }
 
+export interface UserSource {
+  userId: string;
+  sourceId: number;
+  addedAt: string;
+  source: Source;
+}
+
+export function getUserSources(userId: string) {
+  return apiFetch<{ data: UserSource[] }>(`/users/${userId}/sources`);
+}
+
+export function addExistingSource(userId: string, sourceId: number) {
+  return apiFetch<{ data: UserSource }>(`/users/${userId}/sources`, {
+    method: "POST",
+    body: JSON.stringify({ sourceId }),
+  });
+}
+
+export function createUserSource(userId: string, data: { name: string; url: string; type: "RSS" | "API"; config?: Record<string, unknown> }) {
+  return apiFetch<{ data: Source & { userSource: { userId: string } } }>(`/users/${userId}/sources/custom`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export function removeUserSource(userId: string, sourceId: number) {
+  return apiFetch<{ message: string }>(`/users/${userId}/sources/${sourceId}`, { method: "DELETE" });
+}
+
 export function register(email: string, password: string, role = "USER") {
   return apiFetch<{ message: string }>("/auth/register", {
     method: "POST",
