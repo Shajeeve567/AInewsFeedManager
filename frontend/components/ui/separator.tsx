@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
 
-export function Separator({ className, orientation = "horizontal", ...props }: React.HTMLAttributes<HTMLHRElement>) {
+export interface SeparatorProps extends React.HTMLAttributes<HTMLHRElement> {
+  orientation?: "horizontal" | "vertical";
+}
+
+export function Separator({ className, orientation = "horizontal", ...props }: SeparatorProps) {
   return (
     <hr
       className={cn(
