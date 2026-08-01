@@ -2,7 +2,7 @@ import cron from "node-cron"
 import * as sourceRepo from "../repositories/source.repository.js"
 import { rssFeedQueue } from "../queues/rssQueue.js"
 
-const EVERY_15_MIN = "*/15 * * * *"
+const EVERY_15_MIN = "*/60 * * * *"
 
 export function startSourceScheduler() {
     console.log("[Scheduler] Running initial fetch...")

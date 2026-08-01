@@ -1,4 +1,3 @@
-import prisma from "../database/prisma.js"
 import { extractKeywords } from "../utils/keyword-extractor.js"
 import { decayAll, upsertKeyword } from "../repositories/user-preference.repository.js"
 import { findById } from "../repositories/article.repository.js"
@@ -7,7 +6,7 @@ const WEIGHTS = { LIKE: 4, SAVE: 3, READ: 2, CLICK: 1, SHARE: 1, DISMISS: -2 }
 const DECAY_RATE = 0.95
 
 export async function updateScores(userId, articleId, interactionType) {
-  const article = await findById(userId)
+  const article = await findById(articleId)
   
   if (!article) return
 
