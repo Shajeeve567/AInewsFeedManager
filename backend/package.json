@@ -9,7 +9,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "worker": "node src/workers/index.js",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate && prisma migrate deploy"
   },
   "repository": {
     "type": "git",
