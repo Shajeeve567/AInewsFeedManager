@@ -8,7 +8,7 @@ export async function fetch(source) {
         return feed.items.map(item => ({
             title: item.title,
             link: item.link || item.guid,
-            content: item.content || item.contentSnippet || null,
+            content: item.content.replace(/<[^>]*>/g, "").trim() || item.contentSnippet || null,
             publishedAt: item.isoDate ? new Date(item.isoDate) : (item.pubDate ? new Date(item.pubDate) : null)
         }));
     } catch (error) {

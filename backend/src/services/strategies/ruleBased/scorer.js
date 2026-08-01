@@ -2,10 +2,13 @@ import { extractKeywords } from "../../../utils/keyword-extractor.js"
 
 const RECENCY_WEIGHT = 0.3
 const RELEVANCE_WEIGHT = 0.7
-const RECENCY_DAYS = 30
+const RECENCY_DAYS = 15
 
 export function scoreArticle(article, preferencesMap) {
-  const keywords = extractKeywords(article.title)
+  const keywordsFromTitle = extractKeywords(article.title)
+  const keywordsFromContent = extractKeywords(article.content)
+  const keywords = [...new Set([...keywordsFromTitle, ...keywordsFromContent])]
+  
   let relevanceScore = 0
   for (const kw of keywords) {
     relevanceScore += preferencesMap[kw] || 0
