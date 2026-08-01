@@ -10,7 +10,7 @@ const STOP_WORDS = new Set([
   "both", "few", "more", "most", "other", "some", "such", "only",
   "own", "same", "too", "very", "just", "because", "how", "new",
   "get", "use", "make", "like", "time", "one", "two", "also", "now",
-  "even", "still", "already", "yet", "via", "using", "based"
+  "even", "still", "already", "yet", "via", "using", "based", "your"
 ])
 
 export function extractKeywords(text) {
