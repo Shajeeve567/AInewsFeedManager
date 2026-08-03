@@ -123,11 +123,11 @@ export default function RegisterPage() {
         </div>
 
         <div className="mt-8 space-y-3">
-          <button className="w-full flex items-center justify-center gap-2 bg-white/40 hover:bg-white/60 border border-white/60 text-fedin-dark font-medium py-3 rounded-xl transition-all duration-300" disabled>
+          <a href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/auth/google`} className="w-full flex items-center justify-center gap-2 bg-white/40 hover:bg-white/60 border border-white/60 text-fedin-dark font-medium py-3 rounded-xl transition-all duration-300">
             <GoogleLogo size={18} weight="bold" />
             Continue with Google
-          </button>
-          <button className="w-full flex items-center justify-center gap-2 bg-white/40 hover:bg-white/60 border border-white/60 text-fedin-dark font-medium py-3 rounded-xl transition-all duration-300" disabled>
+          </a>
+          <button className="w-full flex items-center justify-center gap-2 bg-white/40 hover:bg-white/60 border border-white/60 text-fedin-dark font-medium py-3 rounded-xl transition-all duration-300 opacity-50 cursor-not-allowed" disabled title="GitHub login coming soon">
             <GithubLogo size={18} weight="bold" />
             Continue with GitHub
           </button>
